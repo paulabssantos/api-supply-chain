@@ -12,11 +12,9 @@ public class ValueAnalisys
     public int SupplierId { get; set; }
 
     public virtual Supplier Supplier { get; set; }
-
-    [Required(ErrorMessage = "Id da cotação é obrigatório")]
-
-    public int QuotationId { get; set; }
-    public virtual Quotation Quotation { get; set; }
+    public int PurchaseOrderId {get;set;}
+    public virtual PurchaseOrder PurchaseOrder {get;set;}
+    
     [Required(ErrorMessage = "Preço do produto é obrigatório")]
     public float Price { get; set; }
 }
