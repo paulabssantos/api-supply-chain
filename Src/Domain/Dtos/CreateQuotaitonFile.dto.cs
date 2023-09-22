@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-public interface CreateQuotationFileDto
+public class CreateQuotationFileDto
 {
 
     [Required(ErrorMessage = "Id da cotação é obrigatório")]
