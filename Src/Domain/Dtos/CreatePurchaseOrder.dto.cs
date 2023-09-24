@@ -8,5 +8,5 @@ public class CreatePurchaseOrderDto{
     [Required(ErrorMessage = "Status do pedido de compra é obrigatório")]
     [EnumDataType(typeof(PurchaseOrderStatusEnum),ErrorMessage = "Status do pedido de compra precisa ser 1(aprovado),2(reprovado) ou 3 (em análise)")]
     public PurchaseOrderStatusEnum Status {get;set;}
-    public string Justification {get;set;} 
+    public string? Justification {get;set;} 
 }
