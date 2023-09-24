@@ -7,7 +7,7 @@ public class PurchaseOrder
 
     [Required(ErrorMessage = "Status do pedido de compra é obrigatório")]
     public int Status { get; set; }
-    public string Justification { get; set; }
+    public string? Justification { get; set; }
     public virtual List<ValueAnalisys> ValueAnalisys { get; set; }
 
 }

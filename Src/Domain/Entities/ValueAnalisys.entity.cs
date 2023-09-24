@@ -12,7 +12,7 @@ public class ValueAnalisys
     public int SupplierId { get; set; }
 
     public virtual Supplier Supplier { get; set; }
-    public int PurchaseOrderId {get;set;}
+    public int? PurchaseOrderId {get;set;}
     public virtual PurchaseOrder PurchaseOrder {get;set;}
     
     [Required(ErrorMessage = "Preço do produto é obrigatório")]
