@@ -1,3 +1,3 @@
 public interface IQuotationFileRepository{
-    public void Create(CreateQuotationFileDto data);
+    public void Create(QuotationFile data);
 }
