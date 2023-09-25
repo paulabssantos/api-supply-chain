@@ -15,7 +15,7 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
-        target: "~/home/ec2-user/supply-chain"
+        target: "projetos/supply-chain"
    
      - name: Update API   
        uses: appleboy/ssh-action@master
@@ -24,4 +24,4 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
         script:
-         cd /home/ec2-user/supply-chain && docker-compose up -d --build api-supply-chain
+         cd /home/ec2-user/projetos/supply-chain && docker-compose up -d --build api-supply-chain
