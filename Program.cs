@@ -12,6 +12,10 @@ builder.Services.AddCors(options =>
                 .AllowAnyHeader();
         });
     });
+builder.Services.Configure<IISServerOptions>(options =>
+    {
+        options.AllowSynchronousIO = true;
+    });
 //Database
 var connectionString = builder.Configuration.GetConnectionString("SupplyChain");
 builder.Services.AddDbContext<MySqlContext>(opts => opts.UseLazyLoadingProxies().UseMySql(connectionString,ServerVersion.AutoDetect(connectionString)));
@@ -19,12 +23,16 @@ builder.Services.AddDbContext<MySqlContext>(opts => opts.UseLazyLoadingProxies()
 //Repositories
 builder.Services.AddScoped<IQuotationRepository,QuotationRepository>();
 builder.Services.AddScoped<ISupplierRepository,SupplierRepository>();
+builder.Services.AddScoped<IValueAnalisysRepository,ValueAnalysisRepository>();
+builder.Services.AddScoped<IPurchaseOrderRepository,PurchaseOrderRepository>();
+builder.Services.AddScoped<IQuotationFileRepository,QuotationFileRepository>();
 
 // Add services to the container.
-builder.Services.AddScoped<CreateValueAnalisysService>();
+builder.Services.AddScoped<CreateValueAnalysisService>();
 builder.Services.AddScoped<CreatePurchaseOrderService>();
 builder.Services.AddScoped<FindQuotationService>();
 builder.Services.AddScoped<ListSuppliersService>();
+builder.Services.AddScoped<CreateQuotationFileService>();
 
 //Libraries
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
