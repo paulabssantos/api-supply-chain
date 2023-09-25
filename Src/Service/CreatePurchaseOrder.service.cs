@@ -1,27 +1,28 @@
+using AutoMapper;
+
 public class CreatePurchaseOrderService
 {
-    public (ErrorResponse?, PurchaseOrder?) Execute(CreatePurchaseOrderDto data)
+    private readonly IPurchaseOrderRepository _purchaseOrderRepository;
+    private readonly IValueAnalisysRepository _valueAnalysisRepository;
+    private readonly IMapper _mapper;
+
+    public CreatePurchaseOrderService(IMapper mapper,IPurchaseOrderRepository purchaseOrderRepository, IValueAnalisysRepository valueAnalisysRepository){
+        _purchaseOrderRepository = purchaseOrderRepository;
+        _valueAnalysisRepository = valueAnalisysRepository;
+        _mapper = mapper;
+    }
+    public (ErrorResponse?, ReadPurchaseOrderDto?) Execute(CreatePurchaseOrderDto data)
     {
-        if((int)data.Status == (int)PurchaseOrderStatusEnum.Repproved || (string.IsNullOrEmpty(data.Justification) || string.IsNullOrWhiteSpace(data.Justification))){
+
+        if((int)data.Status == (int)PurchaseOrderStatusEnum.Repproved && (string.IsNullOrEmpty(data.Justification) || string.IsNullOrWhiteSpace(data.Justification))){
             return(new ErrorResponse("Justificativa não pode ficar vazia quando o status é reprovado"),null);
         }
-        PurchaseOrder purchaseOrder = new()
-        {
-            Id = 1,
-            Status = (int)PurchaseOrderStatusEnum.Approved,
-            ValueAnalisys = new List<ValueAnalisys>()
-            {
-                
-                new ValueAnalisys { Id = 1, Price = 100, ProductAnalisysValueRequestId = 1, SupplierId = 1 },
-            }
-        };
+        var createdPurchaseOrder = _purchaseOrderRepository.Create(_mapper.Map<PurchaseOrder>(data));
+        foreach (var valueAnalysisId in data.ValueAnalysisId)        {
 
-
-        foreach (var valueAnalisys in purchaseOrder.ValueAnalisys)
-        {
-            valueAnalisys.PurchaseOrderId = purchaseOrder.Id;
+            _valueAnalysisRepository.UpdatePurchaseOrder(valueAnalysisId,createdPurchaseOrder.Id);
         }
 
-        return (null, purchaseOrder);
+        return (null, _mapper.Map<ReadPurchaseOrderDto>(createdPurchaseOrder));
     }
 }
