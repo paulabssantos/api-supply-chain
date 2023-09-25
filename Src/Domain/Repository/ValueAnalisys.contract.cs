@@ -1,4 +1,4 @@
 public interface IValueAnalisysRepository{
-    public void Create(CreateValueAnalysisDto data);
-
+    public List<ValueAnalisys> Create(List<ValueAnalisys>data);
+    public void UpdatePurchaseOrder(int id, int purchaseOrderId);
 }

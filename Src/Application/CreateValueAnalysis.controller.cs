@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
-[Route("valueAnalisys")]
+[Route("valueAnalysis")]
 [Tags("ValueAnalysis")]
 public class CreateValueAnalisysController : ControllerBase{
-    private readonly CreateValueAnalisysService _createValueAnalisysService;
-    public CreateValueAnalisysController(CreateValueAnalisysService createValueAnalisysService){
+    private readonly CreateValueAnalysisService _createValueAnalisysService;
+    public CreateValueAnalisysController(CreateValueAnalysisService createValueAnalisysService){
         _createValueAnalisysService = createValueAnalisysService;
     }  
     
@@ -17,5 +17,5 @@ public class CreateValueAnalisysController : ControllerBase{
             return StatusCode(error.statusCode, error);
         }
         return Ok(valueAnalisys);
-    }
+    } 
 }
